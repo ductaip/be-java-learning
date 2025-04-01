@@ -1,6 +1,7 @@
 package be_java_learning.controller;
 
 import be_java_learning.dto.request.UserRequestDTO;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -9,12 +10,12 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @PostMapping("/")
-    public String addUser(@RequestBody UserRequestDTO userDTO) {
+    public String addUser(@Valid @RequestBody UserRequestDTO userDTO) {
         return "User added";
     }
 
     @PutMapping("/{userId}")
-    public String updateUser(@PathVariable int userId, @RequestBody UserRequestDTO userDTO) {
+    public String updateUser(@PathVariable int userId, @Valid @RequestBody UserRequestDTO userDTO) {
         System.out.println("Request update userId=" + userId);
         return "User with userId: " + userId + " have updated successfully";
     }
@@ -34,7 +35,7 @@ public class UserController {
     @GetMapping("/{userId}")
     public UserRequestDTO getUser(@PathVariable int userId) {
         System.out.println("Get detail info of userId : " + userId);
-        return new UserRequestDTO("Tempest", "Rimuru", "phone123", "mock_email");
+        return new UserRequestDTO("Tempest", 12, "abc@aa.com", "mock_email", null);
     }
 
     @GetMapping("/list")
@@ -43,6 +44,6 @@ public class UserController {
             @RequestParam(defaultValue = "20") int pageSize
     ) {
         System.out.println("Request to get all list successfully with pageNumber = " + pageNo + " and page size = " + pageSize);
-        return List.of(new UserRequestDTO("Tempest", "Rimuru", "phone123", "mock_email"), new UserRequestDTO("Guy", "Suranka", "newphone", "new_mail"));
+        return List.of(new UserRequestDTO("Tempest", 12, "abc@aa.com", "mock_email", null), new UserRequestDTO("Tempest", 12, "abc@aa.com", "mock_email", null));
     }
 }

@@ -1,33 +1,53 @@
 package be_java_learning.dto.request;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.io.Serializable;
 
 public class UserRequestDTO implements Serializable {
-    private String firstName;
-    private String lastName;
-    private String phone;
+    @NotNull(message = "ID is required")
+    private Integer id;
+
+    @NotBlank(message = "Name is required")
+    private String name;
+
+    @Email(message = "Email is invalid")
+    @NotBlank(message = "Email is required")
     private String email;
 
-    public UserRequestDTO(String firstName, String lastName, String phone, String email) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phone = phone;
+    @NotBlank(message = "Role is required")
+    private String role;
+
+    private String avatar;
+
+    public UserRequestDTO(String name, Integer id, String email, String role, String avatar) {
+        this.name = name;
+        this.id = id;
         this.email = email;
+        this.role = role;
+        this.avatar = avatar;
+
     }
 
-    public String getFirstName() {
-        return firstName;
+    public Integer getId() {
+        return id;
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public String getPhone() {
-        return phone;
+    public String getName() {
+        return name;
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public String getAvatar() {
+        return avatar;
     }
 }
