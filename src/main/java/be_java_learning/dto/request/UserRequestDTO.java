@@ -1,5 +1,7 @@
 package be_java_learning.dto.request;
 
+import be_java_learning.dto.validator.EnumPattern;
+import be_java_learning.util.UserStatus;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -21,6 +23,9 @@ public class UserRequestDTO implements Serializable {
     private String role;
 
     private String avatar;
+
+    @EnumPattern(name = "status", regexp = "ACTIVE|INACTIVE|NONE")
+    private UserStatus status;
 
     public UserRequestDTO(String name, Integer id, String email, String role, String avatar) {
         this.name = name;
@@ -49,5 +54,9 @@ public class UserRequestDTO implements Serializable {
 
     public String getAvatar() {
         return avatar;
+    }
+
+    public UserStatus getStatus() {
+        return status;
     }
 }
